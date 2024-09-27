@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "build:ui": "rm -rf dist && cd ../craftfolio && npm run build && cp -r dist ../craftfolio-api/dist",
+    "copy:ui": "rsync -av --exclude='node_modules' --exclude='.git' --exclude='dist' ../craftfolio/* ./frontend-codebase && cd ./frontend-codebase && npm install",
+    "build:ui": "rm -rf dist && cd ./frontend-codebase && npm run build && cp -r dist ../dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
