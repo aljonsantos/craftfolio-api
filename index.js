@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
-const { createZip } = require('./services/zip');
+const { v4: uuid } = require('uuid');
+const { generateFiles, createZip, cleanup } = require('./services/download');
 
 const app = express();
 
@@ -18,10 +19,15 @@ app.post('/api/download-code', async (req, res) => {
   res.setHeader('Content-Type', 'application/zip');
   res.setHeader('Content-Disposition', `attachment; filename=${filename}`);
 
+  const id = uuid();
+
   try {
-    await createZip(content, res);
+    generateFiles(content, id);
+    await createZip(id, res);
   } catch (err) {
     res.status(500).send({ error: err.message });
+  } finally {
+    cleanup(id);
   }
 });
 
