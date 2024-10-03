@@ -411,7 +411,7 @@ const generateNavbarFile = (content) => {
           const { top, bottom } = section.getBoundingClientRect()
           const viewportHeight = window.innerHeight 
 
-          if (container.scrollY === 0) {
+          if (window.scrollY === 0) {
             activeSection = sections[0].id
           } else {
             // check if the section covers more than 50% of the viewport/container height
@@ -458,7 +458,7 @@ const Navbar = () => {
       <ul className="flex border capitalize bg-background-700/10 backdrop-blur-xl backdrop-saturate-150 md:bg-background-700 text-[13px] md:text-[14px] text-accent-800 border-accent-100 rounded-3xl shadow-lg lg:shadow-xl lg:hover:scale-105 lg:active:scale-100 transition-transform duration-500">
         {links}
       </ul>
-      <button className='border p-2 md:p-[10px] ml-3 md:ml-4 rounded-full bg-background-700/10 backdrop-blur-xl backdrop-saturate-150 md:bg-background-700 text-[13px] md:text-[14px] text-accent-800/80 border-accent-100 shadow-lg lg:shadow-xl lg:hover:scale-105 lg:active:scale-100' onClick={toggleTheme}>
+      <button className='border p-2 md:p-[10px] ml-3 md:ml-4 rounded-full bg-background-700/10 backdrop-blur-xl backdrop-saturate-150 md:bg-background-700 text-[13px] md:text-[14px] text-content-700 border-accent-100 shadow-lg lg:shadow-xl lg:hover:scale-105 lg:active:scale-100' onClick={toggleTheme}>
         <IconContrast />
       </button>
     </nav>
