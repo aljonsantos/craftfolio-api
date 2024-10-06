@@ -57,7 +57,7 @@ const createZip = async (id, res) => {
 const cleanup = (id) => {
   const downloadPath = path.resolve(__dirname, `../downloads/${id}`);
   if (fs.existsSync(downloadPath)) {
-    fs.rmdirSync(downloadPath, { recursive: true });
+    fs.rmSync(downloadPath, { force: true, recursive: true });
   }
 }
 
