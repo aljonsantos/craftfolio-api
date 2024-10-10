@@ -14,8 +14,8 @@ fi
 # Remove the download directory if it exists
 rm -rf ./downloads/$DOWNLOAD_ID
 
-# Sync the frontend-codebase to the download directory excluding specific directories
-rsync -av --exclude='dist' --exclude='node_modules' --exclude='src/components/Editor' --exclude='services' --exclude='hooks' ./frontend-codebase/ ./downloads/$DOWNLOAD_ID
+# Sync the frontend-codebase to the download directory excluding specific directories/files
+rsync -av --exclude='dist' --exclude='node_modules' --exclude='src/components/Editor' --exclude='services' --exclude='hooks' --exclude='public/favicon.png' ./frontend-codebase/ ./downloads/$DOWNLOAD_ID
 
 # Move all files from Common, Editor, and Preview to components and remove empty directories
 for dir in Common Editor Preview; do
