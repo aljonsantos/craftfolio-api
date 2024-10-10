@@ -474,6 +474,25 @@ export default Navbar
 `
 }
 
+const generateIndexFile = () => (
+  `<!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Template</title>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,400;0,600;0,700;0,900;1,100&family=Space+Mono:ital@0;1&display=swap" rel="stylesheet">
+    </head>
+    <body class="bg-background text-content">
+      <div id="root"></div>
+      <script type="module" src="/src/main.jsx"></script>
+    </body>
+  </html>
+  `
+)
+
 const generateCSSFile = (color) => {
   const { choice } = color
   const { hue, lightness } = color.accent
@@ -638,7 +657,8 @@ return `@tailwind base;
 const generateDynamicFiles = (content, id) => {
   enabledPages = getEnabledPages(content)
 
-  const baseDir = path.resolve(__dirname, `../downloads/${id}/src`);
+  const rootDir = path.resolve(__dirname, `../downloads/${id}`);
+  const baseDir = path.join(rootDir, 'src');
   const contextsDir = path.join(baseDir, 'contexts');
   const componentsDir = path.join(baseDir, 'components');
 
@@ -646,6 +666,7 @@ const generateDynamicFiles = (content, id) => {
   fs.mkdirSync(componentsDir, { recursive: true });
 
   // Write files
+  fs.writeFileSync(path.join(rootDir, 'index.html'), generateIndexFile());
   fs.writeFileSync(path.join(baseDir, 'main.jsx'), generateMainFile(content));
   fs.writeFileSync(path.join(baseDir, 'App.jsx'), generateAppFile(content));
   fs.writeFileSync(path.join(baseDir, 'index.css'), generateCSSFile(content.color));
