@@ -24,8 +24,9 @@ jobs:
           REMOTE_USER: ${{ secrets.USERNAME }}
           TARGET: ${{ secrets.TARGET_DIR }}
           SCRIPT_AFTER: |
+            cd ${{ secrets.TARGET_DIR }}
             npm install
             npm run copy:ui
             npm run build:ui
             sudo systemctl restart craftfolio.service
-            echo $RSYNC_STDOUT
+            sudo systemctl status craftfolio.service
