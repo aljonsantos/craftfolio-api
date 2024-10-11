@@ -541,6 +541,28 @@ return `@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  width: 3px;
+  height: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--clr-scrollbar);
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--clr-scrollbar-hover);
+}
+
+a, button, input, textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
 @layer base {
   :root {
     --clr-background: 255 255 255;
@@ -590,23 +612,6 @@ return `@tailwind base;
 
 .title { 
   z-index: 30;
-}
-
-/* width */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 0px;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: var(--clr-scrollbar);
-  border-radius: 8px;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: var(--clr-scrollbar-hover);
 }
 
 .main .aboutme-card,
