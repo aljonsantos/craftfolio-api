@@ -14,7 +14,7 @@ jobs:
 
     steps:
       - name: Checkout the code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Deploy to server
         uses: easingthemes/ssh-deploy@main
@@ -23,9 +23,9 @@ jobs:
           REMOTE_HOST: ${{ secrets.HOST_DNS }}
           REMOTE_USER: ${{ secrets.USERNAME }}
           TARGET: ${{ secrets.TARGET_DIR }}
-        with:
-          commands: |
+          SCRIPT_AFTER: |
             npm install
             npm run copy:ui
             npm run build:ui
             sudo systemctl restart craftfolio.service
+            echo $RSYNC_STDOUT
