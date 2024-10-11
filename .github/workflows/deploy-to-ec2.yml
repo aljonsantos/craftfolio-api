@@ -10,7 +10,7 @@ on:
 permissions:
   id-token: write
   contents: read
-  
+
 jobs:
   deploy:
     name: Deploy Backend
@@ -27,8 +27,7 @@ jobs:
           aws-region: us-east-1
 
       - name: Get runner IP address
-        id: ip
-        uses: haythem/public-ip@v1.3
+        run: echo "ipv4=$(curl -s ifconfig.me)" >> $GITHUB_ENV
 
       - name: Authorize runner IP address
         run: |
@@ -36,7 +35,7 @@ jobs:
             --group-id ${{ secrets.AWS_INSTANCE_SG_ID }} \
             --protocol tcp \
             --port 22 \
-            --cidr ${{ steps.ip.outputs.ipv4 }}/32
+            --cidr ${{ env.ipv4 }}/32
 
       - name: Deploy to server
         uses: easingthemes/ssh-deploy@main
@@ -59,4 +58,4 @@ jobs:
             --group-id ${{ secrets.AWS_INSTANCE_SG_ID }} \
             --protocol tcp \
             --port 22 \
-            --cidr ${{ steps.ip.outputs.ipv4 }}/32
+            --cidr ${{ env.ipv4 }}/32
