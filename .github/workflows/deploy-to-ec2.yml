@@ -1,0 +1,31 @@
+name: Deploy Backend
+
+on:
+  repository_dispatch:
+    types: [deploy-backend]
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy Backend
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+
+      - name: Deploy to server
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+          REMOTE_HOST: ${{ secrets.HOST_DNS }}
+          REMOTE_USER: ${{ secrets.USERNAME }}
+          TARGET: ${{ secrets.TARGET_DIR }}
+        with:
+          commands: |
+            npm install
+            npm run copy:ui
+            npm run build:ui
+            sudo systemctl restart craftfolio.service
