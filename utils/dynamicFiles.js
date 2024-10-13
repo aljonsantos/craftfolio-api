@@ -74,6 +74,7 @@ import Blogs from './components/Blogs'
 import Contact from './components/Contact'
 import Navbar from './components/Navbar'
 import AboutMeCard from './components/AboutMeCard'
+import Loader from './components/Loader'
 
 const App = () => {
   const enabledPages = ${JSON.stringify(enabledPages)}
@@ -87,15 +88,17 @@ const App = () => {
 
   return (
     <ThemeContextProvider>
-      <div className="main ${content.page} text-sm md:text-base lg:text-base max-w-[480px] pb-[70px] md:py-[70px] flex flex-col md:flex-row md:gap-[50px] md:max-w-[700px] lg:p-[70px] lg:max-w-[1180px] mx-auto">
-        <div id="about" className="nav-section pt-[24px] md:pt-0 pb-0 mx-auto shrink-0 md:min-w-[255px] md:w-[35%] lg:w-[30%]">
-          <AboutMeCard />
+      <Loader>
+        <div className="main ${content.page} text-sm md:text-base lg:text-base max-w-[480px] pb-[70px] md:py-[70px] flex flex-col md:flex-row md:gap-[50px] md:max-w-[700px] lg:p-[70px] lg:max-w-[1180px] mx-auto">
+          <div id="about" className="nav-section pt-[24px] md:pt-0 pb-0 mx-auto shrink-0 md:min-w-[255px] md:w-[35%] lg:w-[30%]">
+            <AboutMeCard />
+          </div>
+          <div className="relative w-full">
+            <Navbar />
+            ${structure}
+          </div>
         </div>
-        <div className="relative w-full">
-          <Navbar />
-          ${structure}
-        </div>
-      </div>
+      </Loader>
     </ThemeContextProvider>
   )
 }
