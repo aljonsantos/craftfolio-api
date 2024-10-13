@@ -75,6 +75,7 @@ import Contact from './components/Contact'
 import Navbar from './components/Navbar'
 import AboutMeCard from './components/AboutMeCard'
 import Loader from './components/Loader'
+import Fade from './components/Fade'
 
 const App = () => {
   const enabledPages = ${JSON.stringify(enabledPages)}
@@ -90,9 +91,9 @@ const App = () => {
     <ThemeContextProvider>
       <Loader>
         <div className="main ${content.page} text-sm md:text-base lg:text-base max-w-[480px] pb-[70px] md:py-[70px] flex flex-col md:flex-row md:gap-[50px] md:max-w-[700px] lg:p-[70px] lg:max-w-[1180px] mx-auto">
-          <div id="about" className="nav-section pt-[24px] md:pt-0 pb-0 mx-auto shrink-0 md:min-w-[255px] md:w-[35%] lg:w-[30%]">
+          <Fade props={{ id: 'about', className:'nav-section pt-[24px] md:pt-0 pb-0 mx-auto shrink-0 md:min-w-[255px] md:w-[35%] lg:w-[30%]' }}>
             <AboutMeCard />
-          </div>
+          </Fade>
           <div className="relative w-full">
             <Navbar />
             ${structure}
@@ -180,7 +181,7 @@ const projects = [
 
 const ProjectCard = ({ project }) => {
   return (
-    <AccentComponent widthClass="" border={false}>
+    <AccentComponent widthClass="" border={false} fade={true}>
       <div className="rounded-2xl border border-accent-300/30 overflow-hidden">
         <img className="mx-auto border-b border-accent-300/30 opacity-20" src={project.image} alt={project.title} />
         <div className="flex flex-col gap-1 lg:gap-2 px-3 py-2 md:px-4 md:py-3 lg:px-5 lg:py-4">
@@ -196,7 +197,7 @@ const ProjectCard = ({ project }) => {
 
 const ProjectList = ({ project }) => {
   return (
-    <AccentComponent roundedClass="lg:rounded-2xl">
+    <AccentComponent roundedClass="lg:rounded-2xl" fade={true}>
       <div className="flex flex-col gap-2 py-2 lg:px-5 lg:py-4">
         <ProjectTitle title={project.title} link={project.link} code={project.code} />
         <p className="text-content-700 font-semibold">{project.description}</p>
@@ -284,7 +285,7 @@ const blogs = [
 
 const BlogList = ({ blog }) => {
   return (
-    <AccentComponent>
+    <AccentComponent fade={true}>
       <div className="flex flex-col gap-2 py-2 lg:px-4 lg:py-3">
         <BlogAttributes blog={blog} />
       </div>
@@ -294,7 +295,7 @@ const BlogList = ({ blog }) => {
 
 const BlogCard = ({ blog }) => {
   return (
-    <AccentComponent widthClass="w-full" border={false}>
+    <AccentComponent widthClass="w-full" border={false} fade={true}>
       <div className="flex flex-col gap-1 md:gap-2 rounded-2xl border border-accent-300/30 p-3 md:px-4 md:py-3 lg:px-5 lg:py-4 overflow-hidden">
         <BlogAttributes blog={blog} />
       </div>
@@ -385,11 +386,11 @@ const generateNavbarFile = (content) => {
   let links
   if (content.page === 'single') {
     links = `enabledPages.map(
-      page => <li key={page}><a href="" data-nav-section={page} onClick={handleClick} className={\`\${page === activePage ? 'active': ''} px-[1em] py-[.8em] inline-block rounded-full m-[1px] transition-all duration-500 hover:bg-accent-200 hover:text-accent-800 hover:font-semibold\`}>{page}</a></li>
+      page => <Fade key={page}><li><a href="" data-nav-section={page} onClick={handleClick} className={\`\${page === activePage ? 'active': ''} px-[1em] py-[.8em] inline-block rounded-full m-[1px] transition-all duration-500 hover:bg-accent-200 hover:text-accent-800 hover:font-semibold\`}>{page}</a></li></Fade>
     )`
   } else if (content.page === 'multi') {
     links = `enabledPages.map(
-      page => <li key={page}><Link to={page} data-nav-section={page} onClick={handleClick} className={\`\${page === activePage ? 'active': ''} px-[1em] py-[.8em] inline-block rounded-full m-[1px] transition-all duration-500 hover:bg-accent-200 hover:text-accent-800 hover:font-semibold\`}>{page}</Link></li>
+      page => <Fade key={page}><li><Link to={page} data-nav-section={page} onClick={handleClick} className={\`\${page === activePage ? 'active': ''} px-[1em] py-[.8em] inline-block rounded-full m-[1px] transition-all duration-500 hover:bg-accent-200 hover:text-accent-800 hover:font-semibold\`}>{page}</Link></li></Fade>
     )`
   }
 
@@ -447,6 +448,7 @@ ${content.page === 'multi' ? "import { Link } from 'react-router-dom'" : ''}
 import AppContext from '../contexts/AppContext'
 import ThemeContext from '../contexts/ThemeContext'
 import { IconContrast } from './Icons'
+import Fade from './Fade'
 
 const Navbar = () => {  
   const { activePage, setActivePage } = useContext(AppContext)
@@ -462,12 +464,14 @@ const Navbar = () => {
   const links = ${links}
 
   return (
-    <nav className="navbar fixed md:sticky w-full bottom-[24px] lg:bottom-[50px] left-0 md:top-[70px] flex justify-center items-center z-50 md:translate-y-0 md:opacity-100 lg:mb-6 transition-all duration-500">
+    <nav className="navbar fixed md:sticky w-full bottom-[24px] lg:bottom-[50px] left-0 md:top-[70px] flex justify-center items-center z-50 lg:mb-6">
       <ul className="flex border capitalize bg-background-700/10 backdrop-blur-xl backdrop-saturate-150 md:bg-background-700 text-[13px] md:text-[14px] text-accent-800 border-accent-100 rounded-3xl shadow-lg lg:shadow-xl lg:hover:scale-105 lg:active:scale-100 transition-transform duration-500">
         {links}
       </ul>
       <button className='border p-2 md:p-[10px] ml-3 md:ml-4 rounded-full bg-background-700/10 backdrop-blur-xl backdrop-saturate-150 md:bg-background-700 text-[13px] md:text-[14px] text-content-700 border-border/10 shadow-lg lg:shadow-xl lg:hover:scale-105 lg:active:scale-100' onClick={toggleTheme}>
-        <IconContrast />
+        <Fade>
+          <IconContrast />
+        </Fade>
       </button>
     </nav>
   )
