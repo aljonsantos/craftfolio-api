@@ -551,12 +551,12 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--clr-scrollbar);
+  @apply bg-accent;
   border-radius: 8px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--clr-scrollbar-hover);
+  @apply bg-accent-700;
 }
 
 a, button, input, textarea {
