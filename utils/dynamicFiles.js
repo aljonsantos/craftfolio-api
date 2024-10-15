@@ -181,7 +181,7 @@ const projects = [
 
 const ProjectCard = ({ project }) => {
   return (
-    <AccentComponent widthClass="" border={false} fade={true}>
+    <AccentComponent widthClass="" border={false} fadeUp>
       <div className="rounded-2xl border border-accent-300/30 overflow-hidden">
         <img className="mx-auto border-b border-accent-300/30 opacity-20" src={project.image} alt={project.title} />
         <div className="flex flex-col gap-1 lg:gap-2 px-3 py-2 md:px-4 md:py-3 lg:px-5 lg:py-4">
@@ -197,7 +197,7 @@ const ProjectCard = ({ project }) => {
 
 const ProjectList = ({ project }) => {
   return (
-    <AccentComponent roundedClass="lg:rounded-2xl" fade={true}>
+    <AccentComponent roundedClass="lg:rounded-2xl" fadeUp>
       <div className="flex flex-col gap-2 py-2 lg:px-5 lg:py-4">
         <ProjectTitle title={project.title} link={project.link} code={project.code} />
         <p className="text-content-700 font-semibold">{project.description}</p>
@@ -285,7 +285,7 @@ const blogs = [
 
 const BlogList = ({ blog }) => {
   return (
-    <AccentComponent fade={true}>
+    <AccentComponent fadeUp>
       <div className="flex flex-col gap-2 py-2 lg:px-4 lg:py-3">
         <BlogAttributes blog={blog} />
       </div>
@@ -295,7 +295,7 @@ const BlogList = ({ blog }) => {
 
 const BlogCard = ({ blog }) => {
   return (
-    <AccentComponent widthClass="w-full" border={false} fade={true}>
+    <AccentComponent widthClass="w-full" border={false} fadeUp>
       <div className="flex flex-col gap-1 md:gap-2 rounded-2xl border border-accent-300/30 p-3 md:px-4 md:py-3 lg:px-5 lg:py-4 overflow-hidden">
         <BlogAttributes blog={blog} />
       </div>
